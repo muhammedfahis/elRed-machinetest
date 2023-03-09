@@ -1,5 +1,4 @@
 module.exports={
-    PRODUCTS:'products',
-    CATEGORY:'category',
-    BRAND:'brand'
+    USERS:'users',
+    TASKS:'tasks'
 }
