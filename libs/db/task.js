@@ -57,10 +57,9 @@ const getSingleTaskByIdDB =async(id) =>{
  
 }
 
-const getAllTasksDB =async() =>{
-    
+const getAllTasksDB =async(perPage,page) =>{
     try {
-      const tasks =  await db.get().collection(COLLECTION['TASKS']).find().toArray()
+      const tasks =  await db.get().collection(COLLECTION['TASKS']).find().skip(perPage * page).limit(+perPage).toArray()
         return{
             success:true,
             data:tasks,
@@ -92,11 +91,66 @@ const deleteTaskByIdDB =async(id) =>{
  
 }
 
+const getHighestIndexDB =async() =>{
+    
+    try {
+      const task =  await db.get().collection(COLLECTION['TASKS']).find().sort({index:-1}).limit(1).toArray()
+        return{
+            success:true,
+            data:task,
+            message:'Task fetched Successfully'
+        }
+    } catch (error) {
+        return {
+            success:false,
+            message:'Something went Wrong'
+        }
+    }
+ 
+}
+
+const deleteAllTAsksDB =async() =>{
+    
+    try {
+      const task =  await db.get().collection(COLLECTION['TASKS']).deleteMany()
+        return{
+            success:true,
+            message:'Tasks deleted Successfully'
+        }
+    } catch (error) {
+        return {
+            success:false,
+            message:'Something went Wrong'
+        }
+    }
+ 
+}
+
+const bulkInsertTaskDB =async(tasks) =>{
+    
+    try {
+      const task =  await db.get().collection(COLLECTION['TASKS']).insertMany(tasks)
+        return{
+            success:true,
+            message:'Tasks added Successfully'
+        }
+    } catch (error) {
+        return {
+            success:false,
+            message:'Something went Wrong'
+        }
+    }
+ 
+}
+
 
 module.exports = {
     createTaskDB,
     updateTaskDB,
     getSingleTaskByIdDB,
     getAllTasksDB,
-    deleteTaskByIdDB
+    deleteTaskByIdDB,
+    getHighestIndexDB,
+    deleteAllTAsksDB,
+    bulkInsertTaskDB
 }

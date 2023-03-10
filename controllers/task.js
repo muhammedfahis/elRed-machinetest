@@ -6,16 +6,26 @@ const {
     updateTaskDB,
     getSingleTaskByIdDB,
     getAllTasksDB,
-    deleteTaskByIdDB
+    deleteTaskByIdDB,
+    getHighestIndexDB,
+    deleteAllTAsksDB,
+    bulkInsertTaskDB
   } = require("../libs/db/task");
 
 
 const createTask = (req,res) => {
+    const { taskName,taskDate,taskStatus } = req.body;
     const v = new niv.Validator(req.body, {
         taskName: 'required',
         taskStatus: 'required',
         taskDate:'required'
       });
+    if(taskStatus !== 'Completed' || taskStatus !== 'Incomplete') {
+        return  res.status(400).send({
+            "success": false,
+            "message": 'Status Must be either Completed or Incomplete'
+          });
+    }
     v.check().then(async matched => {
         if (!matched) {
             res.status(400).send({
@@ -23,8 +33,14 @@ const createTask = (req,res) => {
               "message": Object.values(v.errors)[0].message
             });
         } else {
-         const { taskName,taskDate,taskStatus } = req.body;
-         const data = await createTaskDB(req.body);
+         
+         const latestTask = await getHighestIndexDB();
+         let taskObj = {};
+         taskObj.taskName = taskName.trim();
+         taskObj.taskDate = taskDate.trim();
+         taskObj.taskStatus = taskStatus.trim();
+         taskObj.index = latestTask.data[0]?latestTask.data[0].index +1 : 1;
+         const data = await createTaskDB(taskObj);
          if(data.success){
             res.status(200).send(data);
         } else {
@@ -67,7 +83,8 @@ const updateTask = ( req,res ) => {
 }
 
 const getAllTasks = async (req,res) => {
-    let data = await getAllTasksDB();
+    let { page, limit} = req.query;
+    let data = await getAllTasksDB(limit,page);
     if(data.success){
         res.status(200).send(data);
     } else {
@@ -86,9 +103,26 @@ const deleteTask = async ( req, res) => {
     }
 }
 
+const rearrangeTask = async( req, res) => {
+   let { tasks } = req.body;
+   tasks.forEach((task,index) => task.index = index+1);
+   const deleteTask = await deleteAllTAsksDB();
+   if(deleteTask.success){
+     const data = await bulkInsertTaskDB(tasks);
+        if(data.success) {
+            res.status(200).send(data)
+        } else {
+            res.status(500).send(data);
+        }
+   } else {
+    res.status(500).send(deleteTask);
+}
+}
+
 module.exports = {
     createTask,
     updateTask,
     getAllTasks,
-    deleteTask
+    deleteTask,
+    rearrangeTask
 }

@@ -1,4 +1,5 @@
 module.exports={
     USERS:'users',
-    TASKS:'tasks'
+    TASKS:'tasks',
+    OTP:'otp'
 }

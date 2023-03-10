@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser= require('body-parser');
 const db = require('./config/connection');
 const path = require('path');
-const dotenv =  require('dotenv').config()
+const dotenv =  require('dotenv').config();
+const userSchema = require('./models/user');
 
 const indexRouter = require('./routes/index')
 
@@ -22,5 +23,4 @@ app.use('/',indexRouter)
 
 
 
-  app.listen(PORT,()=>console.log(`server is running on port ${PORT}`));
-  
+app.listen(PORT,()=>console.log(`server is running on port ${PORT}`));
