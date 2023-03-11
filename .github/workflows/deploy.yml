@@ -36,6 +36,8 @@ jobs:
             key: ${{secrets.KEY}}     
             port: ${{secrets.PORT}}  
             script: |
+                sudo usermod -a -G docker ubuntu
+                sudo docker compose down
                 sudo docker stop $(docker ps -a -q)
                 sudo docker rm $(docker ps -a -q)
                 cd -/elRed-machinetest
