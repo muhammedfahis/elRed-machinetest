@@ -11,7 +11,7 @@ async function jwtSignInFunction(payload) {
     try {
         //creates new token valid for 5 min and returning it including 'Bearer' as it perfix
         const strToken = await jwt.sign(data, JwtConfig.secretKey, {
-            expiresIn: "300000s"
+            expiresIn: "300s"
         });
         return "Bearer " + strToken;
     } catch (error) {
