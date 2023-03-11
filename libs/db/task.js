@@ -3,7 +3,7 @@ const COLLECTION = require('../../config/collections');
 const ObjectId = require('mongodb').ObjectId
 
 
-
+//function to create a new task
 const createTaskDB =async(task) =>{
 
     try {
@@ -21,7 +21,7 @@ const createTaskDB =async(task) =>{
  
 }
 
-
+//function to upadate a task with task id
 const updateTaskDB =async(task,id) =>{
 
     try {
@@ -39,6 +39,7 @@ const updateTaskDB =async(task,id) =>{
  
 }
 
+//function to get a task by id
 const getSingleTaskByIdDB =async(id) =>{
     
     try {
@@ -57,7 +58,8 @@ const getSingleTaskByIdDB =async(id) =>{
  
 }
 
-const getAllTasksDB =async(perPage,page) =>{
+//function to get all tasks from DB
+const getAllTasksDB =async(perPage=5,page=0) =>{
     try {
       const tasks =  await db.get().collection(COLLECTION['TASKS']).find().skip(perPage * page).limit(+perPage).toArray()
         return{
@@ -74,6 +76,7 @@ const getAllTasksDB =async(perPage,page) =>{
  
 }
 
+//function to delete a task by id
 const deleteTaskByIdDB =async(id) =>{
     
     try {
@@ -91,6 +94,7 @@ const deleteTaskByIdDB =async(id) =>{
  
 }
 
+//function to get highest order index from records
 const getHighestIndexDB =async() =>{
     
     try {
@@ -109,6 +113,7 @@ const getHighestIndexDB =async() =>{
  
 }
 
+//function to delete all tasks from collection
 const deleteAllTAsksDB =async() =>{
     
     try {
@@ -126,12 +131,14 @@ const deleteAllTAsksDB =async() =>{
  
 }
 
+//function to bulk add tasks into collection
 const bulkInsertTaskDB =async(tasks) =>{
     
     try {
-      const task =  await db.get().collection(COLLECTION['TASKS']).insertMany(tasks)
+      const task =  await db.get().collection(COLLECTION['TASKS']).insertMany(tasks);
         return{
             success:true,
+            data:task.ops,
             message:'Tasks added Successfully'
         }
     } catch (error) {

@@ -3,7 +3,7 @@ const COLLECTION = require('../../config/collections');
 const ObjectId = require('mongodb').ObjectId
 
 
-
+//function to save otp into db for a user
 const saveOtpDB =async(otp) =>{
 
     try {
@@ -20,6 +20,7 @@ const saveOtpDB =async(otp) =>{
     }
  
 }
+//function to get otp for a user
 const getOtpDB =async(id) =>{
 
     try {
@@ -37,7 +38,7 @@ const getOtpDB =async(id) =>{
     }
  
 }
-
+//function to delete all otp records for a user
 const deleteOtpDB =async(id) =>{
 
     try {

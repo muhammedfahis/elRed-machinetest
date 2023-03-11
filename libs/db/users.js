@@ -1,10 +1,10 @@
 const db = require('../../config/connection');
 const COLLECTION = require('../../config/collections');
 const ObjectId = require('mongodb').ObjectId;
-const userSchema = require('../../models/user');
 
 
 
+//function to register new user
 const registerUserDB =async(user) =>{
 
     try {
@@ -24,6 +24,8 @@ const registerUserDB =async(user) =>{
     }
  
 }
+
+//function to get a user by email id
 const getSingleUserByEmailDB =async(email) =>{
 
     try {
@@ -42,6 +44,7 @@ const getSingleUserByEmailDB =async(email) =>{
  
 }
 
+//function to update a user by id
 const updateUserByIdDB =async(id,data) =>{
 
     try {
