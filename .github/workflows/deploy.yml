@@ -1,0 +1,43 @@
+name: 'CICD for Tasks'
+
+on:
+  push:
+    branches: [ "feature/final" ]
+
+jobs: 
+  build:
+    strategy:
+      matrix:
+        node-version: [12.x]
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v2
+      - name: use nodejs
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{matrix.node-version}}
+      - name: build site
+        run: |
+          docker build -t task-docker .
+        env: 
+          CI: true
+
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: connect to SSH
+        uses: appleboy/ssh-action@master
+        with:
+            host: ${{secrets.HOST}}     
+            username: ${{secrets.USER}}  
+            key: ${{secrets.KEY}}     
+            port: ${{secrets.PORT}}  
+            script: |
+                docker stop $(docker ps -a -q)
+                docker rm $(docker ps -a -q)
+                cd -/elRed-machinetest
+                git pull origin feature/final
+                sudo docker compose up -d 
