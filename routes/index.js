@@ -7,7 +7,7 @@ let userRouter = require('./users')
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.render('index', {
-        title: 'Nodejs Test Project'
+        title: 'Nodejs Task Project Test '
     });
 });
 
