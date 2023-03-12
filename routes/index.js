@@ -6,7 +6,8 @@ let userRouter = require('./users')
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {
+    res.status(200).send({
+        success:true,
         title: 'Nodejs Task Project Test '
     });
 });
