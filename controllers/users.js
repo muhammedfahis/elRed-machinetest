@@ -52,8 +52,7 @@ const register = (req, res) => {
                     const data = await registerUserDB({
                         email,
                         password: hashedPass,
-                        verified: false,
-                        test:'test'
+                        verified: false
                     });
                     if (data.success) {
                         //if user saved in DB sends otp to user's email address 
