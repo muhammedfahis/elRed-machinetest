@@ -6,7 +6,7 @@ const { createTask,updateTask,getAllTasks,deleteTask,rearrangeTask } = require('
 
 /**
  * @openapi
- * '/task/create':
+ * '/task':
  *  post:
  *    tags:
  *      - Task
@@ -46,11 +46,11 @@ const { createTask,updateTask,getAllTasks,deleteTask,rearrangeTask } = require('
  *             
  * 
  */
-router.post('/create',auth,createTask);
+router.post('/',auth,createTask);
 
 /**
  * @openapi
- * '/task/update/{id}':
+ * '/task/{id}':
  *  put:
  *    tags:
  *      - Task
@@ -94,11 +94,11 @@ router.post('/create',auth,createTask);
  *             
  * 
  */
-router.put('/update/:id',auth,updateTask);
+router.put('/:id',auth,updateTask);
 
 /**
  * @openapi
- * '/task/list':
+ * '/task':
  *  get:
  *    tags:
  *      - Task
@@ -138,11 +138,11 @@ router.put('/update/:id',auth,updateTask);
  *             
  * 
  */
-router.get('/list',auth,getAllTasks);
+router.get('/',auth,getAllTasks);
 
 /**
  * @openapi
- * '/task/delete/{id}':
+ * '/task/{id}':
  *  delete:
  *    tags:
  *      - Task
@@ -174,7 +174,7 @@ router.get('/list',auth,getAllTasks);
  *             
  * 
  */
-router.delete('/delete/:id',auth,deleteTask);
+router.delete('/:id',auth,deleteTask);
 
 /**
  * @openapi

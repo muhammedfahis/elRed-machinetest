@@ -23,6 +23,8 @@
  *             type: boolean
  *          message:
  *             type: string
+ *          id:
+ *             type: string
  *      createUserLoginResponse:
  *         type: object
  *         properties:
