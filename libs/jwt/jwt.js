@@ -13,7 +13,7 @@ async function jwtSignInFunction(payload) {
         const strToken = await jwt.sign(data, JwtConfig.secretKey, {
             expiresIn: "300s"
         });
-        return "Bearer " + strToken;
+        return strToken;
     } catch (error) {
         new Error(error)
     }

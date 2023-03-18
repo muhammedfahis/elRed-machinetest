@@ -3,7 +3,7 @@ const jwt = require('../jwt/jwt');
 
 module.exports = async function (req, res, next) {
     //takes token from request query
-    let authHeader = req.query.auth;
+    let authHeader = req.header('Authorization');
     try {
         if (authHeader) {
             //if token removes the 'Bearer' keyword from its top

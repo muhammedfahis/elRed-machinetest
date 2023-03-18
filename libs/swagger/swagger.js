@@ -10,12 +10,12 @@ const options = {
       title:'REST API DOCS',
       version
     },
-    components:{
-      securitySchemas:{
-        bearerAuth:{
-          type:'http',
-          scheme:'bearer',
-          bearerFormat:'JWT'
+    "components": {        
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
         }
       }
     },

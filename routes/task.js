@@ -11,13 +11,6 @@ const { createTask,updateTask,getAllTasks,deleteTask,rearrangeTask } = require('
  *    tags:
  *      - Task
  *    summary: create a new Task
- *    parameters:
- *     - name: auth
- *       in: query
- *       description: Bearer Token
- *       required: true
- *       schema:
- *         type: string
  *    requestBody:
  *      required: true
  *      content: 
@@ -60,12 +53,6 @@ router.post('/',auth,createTask);
  *       in: path
  *       description: Id of task
  *       required: true
- *     - name: auth
- *       in: query
- *       description: Bearer Token
- *       required: true
- *       schema:
- *         type: string
  *    requestBody:
  *      required: true
  *      content: 
@@ -116,12 +103,6 @@ router.put('/:id',auth,updateTask);
  *       required: false
  *       schema:
  *         type: number
- *     - name: auth
- *       in: query
- *       description: Bearer token
- *       required: true
- *       schema:
- *         type: string
  *    responses:
  *        200:
  *          description: Success
@@ -152,12 +133,6 @@ router.get('/',auth,getAllTasks);
  *       in: path
  *       description: Id of task
  *       required: true
- *     - name: auth
- *       in: query
- *       description: Bearer Token
- *       required: true
- *       schema:
- *         type: string
  *    responses:
  *        200:
  *          description: Success
@@ -183,13 +158,6 @@ router.delete('/:id',auth,deleteTask);
  *    tags:
  *      - Task
  *    summary: rearragange the tasks
- *    parameters:
- *     - name: auth
- *       in: query
- *       description: Bearer Token
- *       required: true
- *       schema:
- *         type: string
  *    requestBody:
  *      required: true
  *      content: 
